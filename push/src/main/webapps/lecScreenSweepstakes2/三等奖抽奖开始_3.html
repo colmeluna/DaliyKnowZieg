@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>三等奖参与名单</title>
+    <link href="css/mingdan.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript">
+        (function ($) {
+
+            $.fn.myScroll = function (options) {
+                //默认配置
+                var defaults = {
+                    speed: 40,  //滚动速度,值越大速度越慢
+                    rowHeight: 23 //每行的高度
+                };
+
+                var opts = $.extend({}, defaults, options), intId = [];
+
+                function marquee(obj, step) {
+
+                    obj.find("ul").animate({
+                        marginTop: '-=1'
+                    }, 0, function () {
+                        var s = Math.abs(parseInt($(this).css("margin-top")));
+                        if (s >= step) {
+                            $(this).find("li").slice(0, 4).appendTo($(this));
+                            $(this).css("margin-top", 0);
+                        }
+                    });
+                }
+
+                this.each(function (i) {
+                    var sh = opts["rowHeight"], speed = opts["speed"], _this = $(this);
+                    intId[i] = setInterval(function () {
+                        if (_this.find("ul").height() <= _this.height()) {
+                            clearInterval(intId[i]);
+                        } else {
+                            marquee(_this, sh);
+                        }
+                    }, speed);
+
+                    _this.hover(function () {
+                        clearInterval(intId[i]);
+                    }, function () {
+                        intId[i] = setInterval(function () {
+                            if (_this.find("ul").height() <= _this.height()) {
+                                clearInterval(intId[i]);
+                            } else {
+                                marquee(_this, sh);
+                            }
+                        }, speed);
+                    });
+
+                });
+
+            }
+
+        })(jQuery);
+
+        $(function () {
+
+            $("div.choujianghaoma").myScroll({
+                speed: 40,
+                rowHeight: 23
+            });
+             var arr = str3.split(",");            
+            for(var i=0;i<arr.length;i++){
+              $("#allphone").append(" <li>"+arr[i]+"</li>");
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="whole">
+        <!--获奖名单-->
+        <div class="choujiangmingdan_div">
+            <div class="choujiangmingdan">
+                <img src="images/mingdan_bg.png" />
+                <!--中奖号码-->
+                <div class="choujianghaoma">
+                    <ul id = "allphone">
+                        
+                    </ul>
+                </div>
+                <!--抽奖按钮-->
+                <div class="choujiang_btn_div">
+                    <div class="choujiang_btn">
+                        <!--点击按钮跳入一等奖抽奖页面-->
+                        <a href="choujiang3.html">
+                            <img src="images/kaishichoujiang_button.png" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--版权说明-->
+        <div class="banquan">本活动最终解释权归天山物业所有</div>
+    </div>
+
+
+
+</body>
+</html>
