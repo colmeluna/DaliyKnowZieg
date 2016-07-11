@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>二等奖抽奖</title>
+    <link href="css/choujiang.css" rel="stylesheet" />
+    <script>
+        var a = new Array()
+        a[0] = "15069301897";
+        a[1] = "13913254568";
+        a[2] = "13856556565";
+        a[3] = "13756665656";
+        a[4] = "15269123456";
+        a[5] = "15145647232";
+        a[6] = "15366552323";
+        a[7] = "15422665629";
+        a[8] = "15569305454";
+        a[9] = "15669354547";
+        var timeoutID;
+        function cellShow() {
+            var n = Math.round(Math.random() * 1000000) % 10;/*取出a[]随这个数组里的机数*/
+            var s = a[n];/*取出a几里代表的手机号 也就是随机出的上一步的数组的值*/
+            var dd = document.getElementById("show");/*找出id为show的DIV的元素*/
+            dd.innerHTML = s;
+            //让手机号滚动
+            timeoutID = window.setTimeout("cellShow()", 50)
+            //让手机号滚动   延迟50毫秒
+        }
+        function dobegin() {
+            var dd = document.getElementById("btn");
+
+            /*  {cellShow();} */
+            /*{document.getElementById("btn").innerHTML="停止"}*/
+            //对上面括号里进行解释  当执行cellShow函数的同时 计算机执行速度快 相当于同时执行 这步  找到btn标签 并让btn里的值等于“停止”
+            if (dd.innerHTML == "开始抽奖") {
+                cellShow();  /*开始按钮那里SPAN标签要加上一个dobegin函数*/
+
+                dd.innerHTML = "停止";
+            }
+
+            else {
+                window.clearTimeout(timeoutID);
+                dd.innerHTML = "开始抽奖";
+                //document.getElementById("show").innerHTML="15069301897"    /*作弊 专门选到固定号码*/
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="whole">
+    <!--获奖名单-->
+    <div class="huojiangmingdan_div">
+        <div class="huojiangmingdan">
+            <img src="images/huojiangmingdan_beijing2.png" />
+            <!--中奖号码-->
+            <div class="telephone telephone2">
+                <ul>
+                    <li>15033332777</li>
+                    <li>15033332777</li>
+                    <li>15033332777</li>
+                    <li>15033332777</li>
+                    <li>15033332777</li>
+                </ul>
+            </div>
+            <!--抽奖机-->
+            <div class="choujiangji_line1">
+                <span class="line1_left">数量：<span>5</span>名</span>
+                <span class="line1_middle line1_middle2">二等奖（价值500元*****）</span>
+                <span class="line1_right">已抽：<span>0</span>名</span>
+            </div>
+            <!--滚动号码区域-->
+            <div class="gundonghaoma" id="show">15033332777</div>
+            <!--抽奖按钮-->
+            <div class="choujiang_btn_div">
+            <div class="choujiang_btn">
+                <span id="btn" onclick="dobegin()">开始抽奖</span>
+            </div>
+                </div>
+        </div>
+    </div>
+    <!--版权说明-->
+    <div class="banquan">本活动最终解释权归天山物业所有</div>
+    </div>
+
+</body>
+</html>
