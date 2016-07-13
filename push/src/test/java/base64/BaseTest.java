@@ -9,7 +9,6 @@ public class BaseTest {
 		
 	}
 	
-	
 	public static String encodeBase64(byte[] input) {
 		return new String(Base64.encodeBase64(input));
 	}
@@ -25,18 +24,6 @@ public class BaseTest {
     }
 	
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 	public static void main(String args[]){
 		System.out.println("base 64 test");
 		Base64 base64 = new Base64();
@@ -51,8 +38,6 @@ public class BaseTest {
         String decodeStr = null;
 
         enbytes = base64.encode(str.getBytes());
-//        byte[] strings = str.getBytes();
-//        System.out.println("this bytes is "+str.getBytes());
         encodeStr = new String(enbytes);
         debytes = base64.decode(enbytes);
         decodeStr = new String(debytes);
@@ -60,7 +45,6 @@ public class BaseTest {
         System.out.println("编码前:" + str);
         System.out.println("编码后:" + encodeStr);
         System.out.println("解码后:" + decodeStr);
-        
         
         //字符串二进制表示
         String ok  = StrToBinstr(str);
