@@ -9,6 +9,7 @@ import com.foxinmy.umeng4j.UmengProxy;
 import com.foxinmy.umeng4j.cast.Policy;
 import com.foxinmy.umeng4j.cast.UmengCast;
 import com.foxinmy.umeng4j.cast.UniCast;
+import com.foxinmy.umeng4j.exception.UmengException;
 import com.foxinmy.umeng4j.payload.AndroidPayload;
 
 import push.android.AndroidBroadcast;
@@ -280,7 +281,7 @@ public class Demo {
 		
 		UmengProxy umengProxy = new UmengProxy();
 	
-		String deviceToken = "ArMnkxghq4EM3Kt-iirebwTk58ILUBfMaQ7ea3O84ETq";
+		String deviceToken = "ArMnkxghq4EM3Kt-iirebwTk58ILUBfMaQ7ea3O84E";
 		
 			AndroidPayload payload = new AndroidPayload("通知栏提示文字", "通知标题", "通知文字描述");
 			// payload.afterOpenActivity("me.huijian.meeting.chat.ChatListActivity");
@@ -291,13 +292,18 @@ public class Demo {
 			// policy.setStartTime(new Date());
 			uniCast.setPolicy(policy);
 			uniCast.setProductionMode(false);
-			try {
+			/*try {
 				ApiResult reString = umengProxy.pushMessage(uniCast);
 				System.err.println(reString);
 			} catch (Exception e) {
 				// TODO: handle exception
+			}*/
+			try {
+				System.err.println(umengProxy.pushMessage(uniCast));
+			} catch (UmengException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
 		
 		
 		
