@@ -4,6 +4,13 @@ package push;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.foxinmy.umeng4j.ApiResult;
+import com.foxinmy.umeng4j.UmengProxy;
+import com.foxinmy.umeng4j.cast.Policy;
+import com.foxinmy.umeng4j.cast.UmengCast;
+import com.foxinmy.umeng4j.cast.UniCast;
+import com.foxinmy.umeng4j.payload.AndroidPayload;
+
 import push.android.AndroidBroadcast;
 import push.android.AndroidCustomizedcast;
 import push.android.AndroidFilecast;
@@ -248,7 +255,7 @@ public class Demo {
 		Demo demoIos = new Demo("567a1c09e0f55a7e80005648", "10szgtrbiochtac46c1mlt8gysdv2jgc");
 		Demo demoAndroid = new Demo("56601220e0f55ace610010ce", "zaatzo35z6swgcq6w6flsn4upsnhmb3r");
 		try {
-			demoIos.sendIOSUnicast();
+		//	demoIos.sendIOSUnicast();
 			//demo.sendAndroidBroadcast();
 			//demo.sendAndroidUnicast();
 			//demo.sendAndroidUnicast();
@@ -269,6 +276,31 @@ public class Demo {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		
+		
+		UmengProxy umengProxy = new UmengProxy();
+	
+		String deviceToken = "ArMnkxghq4EM3Kt-iirebwTk58ILUBfMaQ7ea3O84ETq";
+		
+			AndroidPayload payload = new AndroidPayload("通知栏提示文字", "通知标题", "通知文字描述");
+			// payload.afterOpenActivity("me.huijian.meeting.chat.ChatListActivity");
+			payload.afterOpenCustom("测试数据");
+			payload.extra("json", "2");
+			Policy policy = new Policy();
+			UniCast uniCast = new UniCast(deviceToken, payload);
+			// policy.setStartTime(new Date());
+			uniCast.setPolicy(policy);
+			uniCast.setProductionMode(false);
+			try {
+				ApiResult reString = umengProxy.pushMessage(uniCast);
+				System.err.println(reString);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		
+		
+		
 	}
 	
 
