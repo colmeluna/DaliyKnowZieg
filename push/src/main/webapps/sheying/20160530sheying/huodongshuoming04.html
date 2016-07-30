@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <title>活动说明</title>
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/shuoming.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(function () {
+        	if($.cookie('userid')!=null){
+				$("#footer2").hide();
+	    		$("#footer1").show();
+			}
+			else{
+				$("#footer2").show();
+	    		$("#footer1").hide();
+			}
+            var divTop = $(".page-footer").css("bottom");
+            var divHeight = $(".page-footer").outerHeight(true);
+            $(".content").ready(function () {
+                $(".content").css("bottom", divTop);
+                $(".content").css("margin-bottom", divHeight);
+                $(".content").css("display", "block");
+            })
+        });
+    </script>
+</head>
+<body>
+    <div class="content">
+        <div class="banner">
+            <img src="images/shuoming_01.jpg" />
+        </div>
+        <!-- 文字部分 -->
+        <!-- <div class="zhuti">寻找最美物业人</div>
+        <div class="fubiaoti">天山海慧第1届业主摄影大赛</div> -->
+        <div class="wenzi">
+            <p>上班路上，突然发现花坛的草丛更加整齐，路面也清爽干净，空气中还有淡淡的青草香，转眼发现小区的每个角落都是那么的整齐干净，原来小区的物业人默默做了这么多，却很少注意到他们工作的情形，生活中不经意的发现，确是他们最平常的瞬间，用发现的眼睛发现身边最普通的物业人。</p>
+            <p>“寻找最美物业人”摄影大赛意在让业主发现小区中最容易被忽略的物业人，用相机记录他们工作的瞬间或助人的瞬间，上传到社区专属天山海慧APP，并发起投票，也可转发到微信、微博平台邀请亲朋好友参与，以获得更多支持，投票截止后，根据投票数给业主颁发奖品。</p>
+        </div>
+        <!--  活动计划 -->
+        <div class="fubiaoti2">活动计划</div>
+        <div class="jihua">
+            <div class="jihua_step">1.活动时间：<span style="color:#3591E1;">6月5日-6月18日</span></div>
+            <div class="jihua_step">2.奖品设定</div>
+            <!-- 一等奖 -->
+            <div class="jiangpin_dengji">一等奖</div>
+            <p>数量：1名</p>
+            <p>奖品：意达尔不粘锅顶级套装</p>
+             <img src="images/yidengjiang.jpg" />
+             <!-- 二等奖 -->
+            <div class="jiangpin_dengji">二等奖</div>
+            <p>数量：2名</p>
+            <p>奖品：意达尔不粘锅精品套装</p>
+             <img src="images/erdengjiang.jpg" />
+             <!-- 三等奖 -->
+             <div class="jiangpin_dengji">三等奖</div>
+            <p>数量：3名</p>
+            <p>奖品：意达尔不粘锅优惠套装</p>
+             <img src="images/sandengjiang.jpg" />
+             <!-- 奖品结束 -->
+             <div class="jihua_step">3.投票方式：天山海慧APP投票 </div>
+             <div class="jihua_step">4.颁奖时间：6月19日</div>
+             <div class="jihua_step">5.颁奖地点：水榭花都海世界大酒店</div>
+             <div class="jihua_step">如有操作疑问，请联系客服微信。</div>
+        </div>
+        <!--  热线电话 -->
+        <div class="rexiandianhua">
+            <div class="dianhua_left">活动咨询热线：</div>
+            <div class="telephone">
+                <p>0311-88801736</p>
+                <p>4009933501</p>  
+            </div>
+        </div>      
+        <!--  二维码-->
+        <div class="erweima">
+             <img src="images/erweima.jpg" />
+             <p>扫一扫下载天山海慧APP</p>
+        </div>
+        
+        
+        <!-- 底部图片 -->
+        <div class="banner">
+            <img src="images/shuoming_02.jpg" />
+        </div>
+    </div>
+
+    <!--底部菜单-->
+    <footer id="footer1" class="page-footer fixed-footer page-footer1">
+        <ul>
+            <li>
+                <a href="shouye01.html">
+                    <img src="images/1_hui.png" />
+                    <p class="wenzi_hui">首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="paihang02.html">
+                    <img src="images/2_hui.png" />
+                    <p class="wenzi_hui">排行</p>
+                </a>
+            </li>
+            <li>
+                <a href="baoming03.html">
+                    <img src="images/3_hui.png" />
+                    <p class="wenzi_hui">报名</p>
+                </a>
+            </li>
+            <li>
+                <a href="huodongshuoming04.html">
+                    <img src="images/4_active.png" />
+                    <p class="wenzi_active">活动说明</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <!--分享出去的底部菜单-->
+    <footer id="footer2" class="page-footer fixed-footer page-footer2" style="display: none;">
+        <ul>
+            <li>
+                <a href="shouye01.html">
+                    <img src="images/1_hui.png" />
+                    <p class="wenzi_hui">首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="paihang02.html">
+                    <img src="images/2_hui.png" />
+                    <p class="wenzi_hui">排行</p>
+                </a>
+            </li>
+            <li>
+                <a href="huodongshuoming04.html">
+                    <img src="images/4_active.png" />
+                    <p class="wenzi_active">活动说明</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    
+</body>
+</html>

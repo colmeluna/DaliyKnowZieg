@@ -1,0 +1,331 @@
+body
+{
+    background-color: #eae9d0;
+}
+
+.banner
+{
+    width: 100%;
+    position: relative;
+}
+
+    .banner img
+    {
+        width: 100%;
+    }
+
+/*排名列表*/
+.paiming
+{
+    width: 96%;
+    margin: 0 auto;
+    background-color: #fff;
+    overflow: hidden;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -o-border-radius: 5px;
+    border-radius: 5px;
+}
+
+    .paiming ul
+    {
+        width: 100%;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+        .paiming ul li
+        {
+            width: 100%;
+            overflow: hidden;
+            border-top: 1px solid #dedede;
+            padding: 10px 0px;
+        }
+
+.paiming_div
+{
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.num
+{
+    float: left;
+    color: #7b7763;
+    width: 15%;
+    font-size: 1.4rem;
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+
+.box
+{
+    float: left;
+    width: 20%;
+    margin: 0 auto;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+    .box img
+    {
+        width: 60px;
+        height: 60px;
+        text-align: center;
+        margin: 0 auto;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+.toupiao_qingkuang
+{
+    float: left;
+    width: 40%;
+    overflow: hidden;
+    padding: 10px 0px;
+    text-align: center;
+}
+
+    .toupiao_qingkuang p
+    {
+        color: #7b7763;
+        font-size: 1.5rem;
+        margin-top:3px;
+    }
+
+.cansairen
+{
+    width: 100%;
+    overflow: hidden;
+}
+
+.hao
+{
+    width: 100%;
+    overflow: hidden;
+}
+
+.piaoshu
+{
+    float: right;
+    width: 25%;
+    color: #f05e22;
+    font-size: 1.6rem;
+    margin-top: 20px;
+}
+/*排名123*/
+.paiming_top
+{
+    position: absolute;
+    bottom: 0px;
+    left: 2%;
+    width: 96%;
+}
+
+.paiming_top_div
+{
+    width: 100%;
+    position: relative;
+}
+
+.paiming_top img
+{
+    width: 100%;
+}
+
+
+
+
+
+
+/*名次角标*/
+.jiaobiao
+{
+    width: 10%;
+    position: absolute;
+}
+
+    .jiaobiao img
+    {
+        width: 100%;
+    }
+
+.jiaobiao2
+{
+    bottom: 0;
+    left: 55%;
+}
+
+.jiaobiao1
+{
+    bottom: 0;
+    left: 60%;
+}
+
+.jiaobiao3
+{
+    bottom: 0;
+    left: 60%;
+}
+/*作者和票数*/
+
+.author
+{
+    color: #7b7763;
+    font-size: 1.5rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.toupiaoshu
+{
+    color: #f05e22;
+    font-size: 1.6rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.author1
+{
+    width: 27.5%;
+    position: absolute;
+    bottom: 15%;
+    left: 36.5%;
+}
+
+.toupiaoshu1
+{
+    width: 27.5%;
+    position: absolute;
+    bottom: 5%;
+    left: 36.5%;
+}
+
+.author2
+{
+    width: 26.5%;
+    position: absolute;
+    bottom: 12%;
+    left: 9.5%;
+}
+
+.toupiaoshu2
+{
+    width: 26.5%;
+    position: absolute;
+    bottom: 5%;
+    left: 9.5%;
+}
+
+
+.author3
+{
+    width: 26.5%;
+    position: absolute;
+    bottom: 12%;
+    right: 9.2%;
+}
+
+.toupiaoshu3
+{
+    width: 26.5%;
+    position: absolute;
+    bottom: 5%;
+    right: 9.2%;
+}
+
+
+/*第二名*/
+.dierming
+{
+    width: 26.5%;
+    position: absolute;
+    bottom: 22%;
+    left: 9.5%;
+}
+
+.box2
+{
+    float: left;
+    width: 40%;
+    margin-left: 30%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+    .box2 img
+    {
+        width: 100%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+
+/*第一名*/
+.diyiming
+{
+    width: 27.5%;
+    position: absolute;
+    bottom: 28%;
+    left: 36.5%;
+}
+
+.box1
+{
+    float: left;
+    width: 50%;
+    margin-left: 25%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+    .box1 img
+    {
+        width: 100%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }
+
+/*第三名*/
+.disanming
+{
+    width: 26.5%;
+    position: absolute;
+    bottom: 22%;
+    right: 9.2%;
+}
+
+.box3
+{
+    float: left;
+    width: 40%;
+    margin-left: 30%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+    .box3 img
+    {
+        width: 100%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+    }

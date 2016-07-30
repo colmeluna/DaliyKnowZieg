@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <title>报名</title>
+    <link href="css/common.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script type='text/javascript' src='js/LocalResizeIMG.js'></script>
+	<script type='text/javascript' src='js/patch/mobileBUGFix.mini.js'></script>
+    <link href="css/baoming.css" rel="stylesheet" />
+    <script type="text/javascript">
+    $(function () {
+     	/* var imgArray ;
+     	$('#fileToUpload').localResizeIMG({
+     	      width: 400,
+     	      quality: 1,
+     	      success: function (result) { 
+     	    	$("#basepic").val(result.clearBase64);
+     	    	var oo = $("#basepic").val();
+     	    	//alert(oo);
+     	    	  //alert(result.clearBase64);
+     			  /* var submitData={
+     					base64_string:result.clearBase64, 
+     				};   
+     	      }
+     	  }); 
+     	 */	
+     	 var userid = $.cookie('userid');
+     	// alert(userid);
+     	 if(userid!=null&&userid!='null'){
+     		// alert(1);
+     		 $("#userid").val(userid);
+     	 }
+     	 else{
+     		// alert(2);
+     		// $("#tijiaobtn").hide();
+     		$(".tishi_wenzi").empty().html("请登录app后提交");
+			 $("#cover").show();
+			 $("#doneall").show();
+			 $("#close").click(function () {
+				 history.go(-1);
+              });
+			 
+     	 }
+     	 
+         	$("#tijiaobtn").click(function(){
+         		var name = $("#name").val();
+         		var tel = $("#phone").val();
+         		var file = $("#fileToUpload").val();
+         		 if(!name){
+         			 $(".tishi_wenzi").empty().html("姓名不能为空");
+ 					 $("#cover").show();
+ 					 $("#doneall").show();
+                    // alert("姓名不能为空");
+                      return false;
+                  }
+                  if (!tel.match(/^1\d{10}$/g)) {
+                 	 $(".tishi_wenzi").empty().html("手机号码格式不正确");
+ 					 $("#cover").show();
+ 					 $("#doneall").show();
+                 	// alert("手机号码格式不正确");
+                    //  $('[name=tel]').focus();
+                      return false;
+                  }
+                  if(!file){
+                 	// alert("请选择作品图片");
+                 	 $(".tishi_wenzi").empty().html("请选择作品图片");
+ 					 $("#cover").show();
+ 					 $("#doneall").show();
+                  }
+                  else{
+                 	 $("#inputForm").submit();
+                  }
+         	});
+         	
+         	(function ($) {
+                 $.getUrlParam = function (name) {
+                     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                     var r = window.location.search.substr(1).match(reg);
+                     if (r != null) return unescape(r[2]); return null;
+                 }
+             })(jQuery);
+         	
+         	//方法二：
+             var repage = $.getUrlParam('repage');
+ 			if(repage!=null){
+ 				//alert("恭喜你 参与成功 ");
+ 				//开启遮罩层  + 成功提示 
+ 				$("#cover").show();
+ 				$("#doneall").show();
+ 			} 
+ 			
+ 			$("#close").click(function () {
+                 $("#cover").hide();
+                 $("#doneall").hide();
+              });
+ 			
+ 			//样式js 固定 
+ 			var $divWidth1 = $('.square img').width();
+        		$(".square img").css('height', $divWidth1);
+       		var $divWidth2 = $('.square').width();
+       		$(".square").css('height', $divWidth2);
+ 			
+             var divTop = $(".page-footer").css("bottom");
+             var divHeight = $(".page-footer").outerHeight(true);
+             $(".content").ready(function () {
+                 $(".content").css("bottom", divTop);
+                 $(".content").css("margin-bottom", divHeight);
+                 $(".content").css("display", "block");
+             })
+         });
+     
+     
+     function preview2(file) {
+         var reader = new FileReader();
+         reader.onload = function(e) {
+             var img = $('<img>').attr("src", e.target.result);//width="50" height="50"
+            /*  img.attr("width",50);
+             img.attr("height",50); */
+             $('#preview').empty().append(img);
+         }
+         reader.readAsDataURL(file);
+     }
+     $(function() {
+         $('[type=file]').change(function(e) {
+             var file = e.target.files[0];
+             var obj = document.getElementById('fileToUpload');  
+             console.log(obj);
+              photoExt=obj.value.substr(obj.value.lastIndexOf(".")).toLowerCase();//获得文件后缀名
+            // alert(photoExt);
+              if(photoExt!='.jpg'&&photoExt!='.jpeg'&&photoExt!='.png'){
+                 //alert("请上传照片");
+                  $(".tishi_wenzi").empty().html("请选择图片类型");
+ 					 $("#cover").show();
+ 					 $("#doneall").show();
+                 return false;
+             } 
+             preview2(file);
+             
+         })
+     });   
+    </script>
+</head>
+<body>
+    <div class="content">
+        <!--头部展示图片-->
+        <div class="banner">
+            <img src="images/shuoming_01.jpg" />
+        </div>
+        <!--报名-->
+        <form id="inputForm" action="../../photoContest/PhotoContestFront/goupload" 
+       method="post" enctype="multipart/form-data" >
+        <div class="baoming">
+        	<div class="tishiyu" style="color:#666;text-align:center;padding:10px 15px;font-size:1.5rem;">* 如有操作疑问，请联系客服微信。*</div>
+            <input class="shuru" id = "name" name = "name" type="text" placeholder="请输入姓名" />
+            <input class="shuru" id = "phone" name = "phone" type="text" placeholder="请输入电话" />
+            <textarea class="lapiaoxuanyan" id ="sayword" name = "sayword" rows="5" placeholder="拉票宣言"></textarea>
+             <div class="xuanphoto">
+                <img src="images/xuanzhaopian.png" onclick = "fileToUpload.click();"/>
+                <input id="fileToUpload" multiple="multiple" type="file" size="45" capture="camera" accept="image/gif,image/png,image/jpg,image/jpeg"  name="fileToUpload" class="input" style="display:none;" >
+            	<input type = "hidden" id = "basepic" name = "basepic[]" value =""/>
+            	<input type = "hidden" id = "userid" name = "userid" value =""/>
+            </div>  
+           	<!-- 照片预览 -->
+            <div class="navline">
+               <a>
+                <div class="square" id = "preview">
+                	<!--  <img  src="images/shuoming_01.jpg" />  -->
+                </div>
+               </a>
+              
+               
+               
+            </div>
+            <!-- 照片预览结束 -->
+           
+           
+            <div class="toupiao_btn" id = "tijiaobtn">
+                <img src="images/tijiao_btn.png" />
+            </div>
+        </div>
+        </form>
+        
+        <!--底部图片-->
+        <div class="banner">
+            <img src="images/shuoming_02.jpg" />
+        </div>
+
+
+		<!--遮罩层-->
+        <div id="cover" style="display: none;">
+        </div>
+        <!--投票成功提示框-->
+        <div id="doneall" class="tijiaotishi_div" style="display: none;">
+	       	 <img src="images/tishi_beijing.png" />
+	        <!-- 投票成功提示 -->
+	        <div class="tishi_wenzi">
+	        	提交成功
+	        </div>
+	        <!--关闭按钮-->
+	        <div id = "close" class="close">
+	            <img src="images/close.png" />
+	        </div>
+        </div>
+        
+    </div>
+
+
+    <!--底部菜单-->
+    <footer class="page-footer fixed-footer page-footer1">
+        <ul>
+            <li>
+                <a href="shouye01.html">
+                    <img src="images/1_hui.png" />
+                    <p class="wenzi_hui">首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="paihang02.html">
+                    <img src="images/2_hui.png" />
+                    <p class="wenzi_hui">排行</p>
+                </a>
+            </li>
+            <li>
+                <a href="baoming03.html">
+                    <img src="images/3_active.png" />
+                    <p class="wenzi_active">报名</p>
+                </a>
+            </li>
+            <li>
+                <a href="huodongshuoming04.html">
+                    <img src="images/4_hui.png" />
+                    <p class="wenzi_hui">活动说明</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <!--分享出去的底部菜单-->
+    <footer class="page-footer fixed-footer page-footer2" style="display: none;">
+        <ul>
+            <li>
+                <a href="shouye01.html">
+                    <img src="images/1_hui.png" />
+                    <p class="wenzi_hui">首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="paihang02.html">
+                    <img src="images/2_hui.png" />
+                    <p class="wenzi_hui">排行</p>
+                </a>
+            </li>
+            <li>
+                <a href="huodongshuoming04.html">
+                    <img src="images/4_hui.png" />
+                    <p class="wenzi_hui">活动说明</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+</body>
+</html>

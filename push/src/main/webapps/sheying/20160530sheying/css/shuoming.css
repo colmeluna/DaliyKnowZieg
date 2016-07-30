@@ -1,0 +1,155 @@
+body
+{
+    background-color: #eae9d0;
+}
+
+.banner
+{
+    width: 100%;
+}
+
+    .banner img
+    {
+        width: 100%;
+    }
+    
+.zhuti
+{
+    overflow: hidden;
+    text-align: center;
+    padding: 20px 0px 5px;
+    font-weight: bold;
+    font-size: 2rem;
+    color: #3591E1;
+}
+
+.fubiaoti
+{
+    color:#f15353;
+    font-size: 1.7rem;
+    text-align: center;
+    font-weight: 800;
+    padding: 15px 0px 5px;
+}
+
+.wenzi
+{
+    background-color: #eae9d0;
+    padding: 0px 10px;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+    .wenzi p
+    {
+        font-size: 1.5rem;
+        color: #7b7763;
+        margin-top: 10px;
+        line-height: 1.7;
+        text-indent:2em;
+    }
+
+
+/* 活动计划 */
+.fubiaoti2
+{
+    color:#f15353;
+    font-size: 1.7rem;
+    text-align: center;
+    font-weight: 800;
+    padding: 15px 0px 5px;
+}
+
+.jihua_step
+{
+    color:#000;
+    font-size: 1.5rem;
+    font-weight: 800;
+    padding: 15px 0px;
+}
+
+.jiangpin_dengji
+{
+	color:#ff6a00;
+    font-size: 1.6rem;
+    font-weight: 800;
+    padding: 15px 15px;
+    text-align: center;
+}
+
+
+.jihua
+{
+    background-color: #eae9d0;
+    padding: 0px 10px;
+    margin-bottom: 30px;
+}
+
+    .jihua p
+    {
+        font-size: 1.5rem;
+        color: #7b7763;
+        margin-top: 10px;
+        line-height: 1.7;
+    }
+    
+    .jihua img
+    {
+        width: 100%;
+        text-align: center;
+        margin: 0 auto;
+        padding: 10px 0px;
+    }
+    
+    
+    .erweima
+{
+    background-color: #eae9d0;
+    padding: 0px 10px;
+    margin-bottom: 30px;
+}
+
+    .erweima p
+    {
+        font-size: 1.5rem;
+        color: #999999;
+        margin-top: 10px;
+        line-height: 1.7;
+        text-align: center;
+        font-weight: 800;
+    }
+    
+    .erweima img
+    {
+        width:60%;
+        margin:0 auto;
+        text-align: center;
+        margin: 0 auto;
+        padding: 10px 0px;
+    }
+    
+/* 热线电话  */
+       .rexiandianhua
+        {
+            width:100%;
+            overflow:hidden;
+            margin-bottom: 30px;
+        }
+        .dianhua_left
+        {
+            float:left;
+            font-size:1.6rem;
+            padding: 0px 0px 0px 10px;
+        }
+        .telephone
+        {
+           position:relative;
+           overflow:hidden;
+           padding: 0px 10px 0px 0px;
+        }
+        .telephone p{
+           font-size:1.7rem;
+           color:#f15353;
+           font-weight: 800;
+           margin-bottom: 10px;
+        }

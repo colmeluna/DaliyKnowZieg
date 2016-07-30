@@ -1,0 +1,580 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!--<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">-->
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport"
+	content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<title>首页</title>
+<link href="css/common.css" rel="stylesheet" />
+<link href="css/shouye.css" rel="stylesheet" />
+<script type="text/javascript" src="../20160601_openAPP/js/jquery.min.js"></script>
+<style>
+        *
+        {
+            margin:0;
+            padding:0;
+        }
+
+        html
+        {
+            font-size: 62.5%;
+            margin:0;
+            padding:0;
+        }
+
+        body
+        {
+            width: 100%;
+            font-family: 'Microsoft YaHei';
+            margin:0;
+            padding:0;
+        }
+
+        .whole
+        {
+            padding: 0px 15px;
+            margin-bottom:15px;
+        }
+
+        img
+        {
+            width: 100%;
+            margin-top:10px;
+        }
+
+         p
+        { 
+            margin:0;
+            padding:0;
+        }
+        .whole p
+        {
+            line-height:1.8;
+            margin-top:5px;
+            font-size: 1.6rem;
+            color: #333333;
+        }
+    </style>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script src="js/jquery.cookie.js"></script>
+<script type="text/javascript">
+	    var host = 'http://zhsq.isolomo.com.cn';
+	    //var host = 'http://192.168.0.188:8080';
+	   // var host = 'http://123.57.61.216:8080';
+	   // var host = 'http://localhost:8080';
+	   function GetRequest() {
+	var url = location.search; 
+	var theRequest = new Object();
+	if (url.indexOf("?") != -1) {
+		var str = url.substr(1);
+		strs = str.split("&");
+		for ( var i = 0; i < strs.length; i++) {
+			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
+	}
+	return theRequest;
+}    
+var Request = new Object();
+Request = GetRequest();
+var comid = Request['comid'];
+var userid=Request['userid'];
+//取传入参数判断app
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
+var appType = getUrlParam('appType');
+//alert(userid); //登陆 则 有值 否则为空 
+$(function(){
+	//$.cookie("userid",null,{path:"/"});
+	if(userid!=undefined&&userid!=null&&userid!=''&&userid!='null'){ //手机app内部打开  则设定 cookie 
+		//alert("unde");
+		if($.cookie('userid')!=null){ //已经设定过 cookie 则 
+    		 //alert($.cookie('userid'));
+    	}
+    	else{
+    		$.cookie('userid',userid,{path:"/"});
+    		// alert("ok set :"+$.cookie('userid'));
+    	}
+	}
+	else{ //分享出去的 页面 则 点击投票  直接 打开下载页面 
+		if($.cookie('userid')==null||$.cookie('userid')==undefined){
+			$("#footer2").show();
+    		$("#footer1").hide();
+		}
+		
+	}
+	//初始加载
+	var url = host+'/miwc2/photoContest/PhotoContestFront/getPhotoContest?request={"userid":"","searchword":""}';
+	ajaxData();
+	ajaxCountData();
+	
+	ajaxViste();
+	//搜索框搜索 
+	$("#gosearch").click(function(){ 
+		var searchword = encodeURI(encodeURI($("#searchwords").val()));
+    	$("#photoList").empty();
+    	var url2 = host+'/miwc2/photoContest/PhotoContestFront/getPhotoContest?request={"userid":"'+userid+'","searchword":"'+searchword+'"}';
+    	$.ajax({
+			type : "GET",
+			contentType : "application/json",
+			url : url2,
+			success : function(data) {
+					$("#searchwords").empty();
+					var json = eval("(" + data + ")");
+					if (json.data != "") 
+					{
+						for ( var i = 0; i < json.data.length; i++) {
+							var id = json.data[i].id;
+							var name = json.data[i].name; 
+							var photo = json.data[i].picurl;
+							var votenum = json.data[i].votenum;
+							if(appType != 'tianshan'){//app
+								$("#photoList").append(
+										 "<li><div class='toupiao_div'><a href='xiangqing.html?id="+id+"'><img class='zuopin_img' src='"+photo+"'/></a>"
+					                      +"<div class='toupiao_qingkuang'>"
+					                      +"<span class='cansairen' id='cansairen_"+id+"'>"+name+"</span>"
+					                      +"<span class='piaoshu'><span>"+votenum+"</span>票</span>"
+					                      +"</div>"
+					                      +"<div class='toupiao_btn' id='toupiao_"+id+"'>投票</div>"
+					                      +"<div class='zuopinhao_beijing'><img src='images/hao_beijing.png'/>"
+					                      +"<div class='zuopinhao'>"
+					                      +"<p><span>"+id+"</span>号</p></div></div></div></li>"
+										);
+						}else {//非app
+							$("#photoList").append(
+									 "<li><div class='toupiao_div'><a href='xiangqing.html?id="+id+"'><img class='zuopin_img' src='"+photo+"'/></a>"
+				                      +"<div class='toupiao_qingkuang'>"
+				                      +"<span class='cansairen' id='cansairen_"+id+"'>"+name+"</span>"
+				                      +"<span class='piaoshu'><span>"+votenum+"</span>票</span>"
+				                      +"</div>"
+				                      +"<div class='toupiao_btn' id='toupiao_"+id+"' onclick='opApp();'>投票</div>"
+				                      +"<div class='zuopinhao_beijing'><img src='images/hao_beijing.png'/>"
+				                      +"<div class='zuopinhao'>"
+				                      +"<p><span>"+id+"</span>号</p></div></div></div></li>"
+									);
+						}
+					}
+					if(appType != 'tianshan'){//非app
+	        			afterLoad();
+					}
+					}
+				}
+			});
+	});
+	
+	//获取 首页作品列表 
+	function ajaxData(){
+    	$.ajax({
+			type : "GET",
+			contentType : "application/json",
+			url : url,
+			success : function(data) {
+						var json = eval("(" + data + ")");
+						if (json.data != "") 
+						{
+							for ( var i = 0; i < json.data.length; i++) {
+								var id = json.data[i].id;
+								var name = json.data[i].name; 
+								var photo = json.data[i].picurl;
+								var votenum = json.data[i].votenum;
+								if(appType != 'tianshan'){//app
+									$("#photoList").append(
+											 "<li><div class='toupiao_div'><a href='xiangqing.html?id="+id+"'><img class='zuopin_img' src='"+photo+"'/></a>"
+						                      +"<div class='toupiao_qingkuang'>"
+						                      +"  <span class='cansairen' id='cansairen_"+id+"'>"+name+"</span>"
+						                      +"  <span class='piaoshu'><span>"+votenum+"</span>票</span>"
+						                      +"     </div>"
+						                      +"      <div class='toupiao_btn' id='toupiao_"+id+"'>投票</div>"
+						                      +"    <div class='zuopinhao_beijing'><img src='images/hao_beijing.png' />"
+						                      +"     <div class='zuopinhao'>"
+						                      +"              <p><span>"+id+"</span>号</p> </div>  </div> </div>  </li>"
+											
+											);
+								}else {//非app
+									$("#photoList").append(
+											 "<li><div class='toupiao_div'><a href='xiangqing.html?id="+id+"'><img class='zuopin_img' src='"+photo+"'/></a>"
+						                      +"<div class='toupiao_qingkuang'>"
+						                      +"  <span class='cansairen' id='cansairen_"+id+"'>"+name+"</span>"
+						                      +"  <span class='piaoshu'><span>"+votenum+"</span>票</span>"
+						                      +"     </div>"
+						                      +"      <div class='toupiao_btn' id='toupiao_"+id+"' onclick='opApp();'>投票</div>"
+						                      +"    <div class='zuopinhao_beijing'><img src='images/hao_beijing.png' />"
+						                      +"     <div class='zuopinhao'>"
+						                      +"              <p><span>"+id+"</span>号</p> </div>  </div> </div>  </li>"
+											
+											);
+								}
+							}
+						}
+							if(appType != 'tianshan'){//非app
+			        			afterLoad();
+							}
+					}
+    	 
+   		 		});
+	}
+	//ajax加载结束 绑定div click事件 进行投票
+  	function afterLoad()  
+  	{  
+  	    	$(".toupiao_btn").each(function(){ 
+    			$(this).click(function(){
+    				var id = $(this).attr('id');
+    				//alert("当前投票用户为："+userid+" 被投票的作品id为 ："+id);
+    				var voteid = id.replace("toupiao_","");
+    				var cansairenName = $("#cansairen_"+voteid).text();
+    				
+    				console.log("cansairenName:"+cansairenName);	
+    					if(userid==''){
+    						$(".tishi_wenzi").html(" 【请登录您的账号后投票】 "); 
+ 							$("#cover").show();
+ 							$("#doneall").show();
+    					}
+    					else if(userid!=undefined){ //后缀有userid 则去ajax提交 
+        					ajaxVote(userid,voteid);
+        				}
+        				else{ //否则  直接打开 app下载页面 
+							console.log("go download");	
+						    $("#votecansairen").html(" 【"+cansairenName+"】 "); 
+							$("#cover").show();
+							$("#doneall2").show();
+        				}
+    				}); 
+    			});
+  	}  
+	function ajaxVote(loginuser,voteid){
+		$.ajax({
+			type : "GET",
+			contentType : "application/json",
+			url : host+'/miwc2/photoContest/PhotoContestFront/submitVote?request={"id":"'+voteid+'","voteUserid":"'+loginuser+'"}',
+			success : function(data) {
+					//alert("voted good");
+						var json = eval("(" + data + ")");
+						var code = json.code;
+						if(code=='00'){//投票成功
+							$(".tishi_wenzi").empty().html("投票成功 ！");
+							$("#cover").show();
+							$("#doneall").show();
+						}
+						else if(code = '01'){//已经投过了
+							$(".tishi_wenzi").empty().html("您今日已经投过了 ");
+							$("#cover").show();
+							$("#doneall").show();
+						}
+						else{//服务器异常稍候再试 
+							$(".tishi_wenzi").empty().html("网络超时");
+							$("#cover").show();
+							$("#doneall").show();
+						}
+				}
+			});
+	}
+	//获取首页 参数 
+	function ajaxCountData(){
+		$.ajax({
+			type : "GET",
+			contentType : "application/json",
+			url : host+'/miwc2/photoContest/PhotoContestFront/getHomeDataCount',
+			success : function(data) {
+					var json = eval("(" + data + ")");
+					if (json.data != "") 
+					{
+						var countuser = json.data.countuser;
+						var countvote = json.data.countvote;
+						var visitnumber = json.data.visitnumber;
+						$("#baomingnum").html(countuser);
+						$("#votednum").html(countvote);
+						$("#vistednum").html(visitnumber);
+					}
+				}
+			});
+	}
+	//修改 访问次数 
+	function ajaxViste(){
+		$.ajax({
+			type : "GET",
+			contentType : "application/json",
+			url : host+'/miwc2/photoContest/PhotoContestFront/updateVisitNumber',
+			success : function(data) {
+					
+				}
+			});
+	}
+	
+	 //关闭按钮
+    $(".close").click(function () {
+            $("#cover").hide();
+            $("#doneall").hide();
+            $("#doneall2").hide();
+    });
+});        	
+$(function () {
+    var divTop = $(".page-footer").css("bottom");
+    var divHeight = $(".page-footer").outerHeight(true);
+    $(".content").ready(function () {
+        $(".content").css("bottom", divTop);
+        $(".content").css("margin-bottom", divHeight);
+        $(".content").css("display", "block");
+    })
+});
+$(function () {
+    var $divWidth1 = $('.zuopin_img').width();
+    $(".zuopin_img").css('height', $divWidth1 * 380 / 560);
+});
+    </script>
+</head>
+<body>
+	<div id="zhezhao" style="width:100%; height:100%; z-index:100000; display: none;">
+	<img alt="" src="../20160601_openAPP/img/guide.png" height="100%" width="100%" style="margin:0;padding:0;">
+	</div>
+	<div class="content">	
+		<div class="banner">
+			<img src="images/shouye_01.jpg" />
+		</div>
+		<!--统计-->
+		<div class="tongji">
+			<ul>
+				<li>
+					<p class="ui-nowrap tongji1_1" id="baomingnum"></p>
+					<p class="ui-nowrap tongji1_2">报名人数</p>
+				</li>
+				<li>
+					<p class="ui-nowrap tongji1_1" id="votednum"></p>
+					<p class="ui-nowrap tongji1_2">累计投票数</p>
+				</li>
+				<li>
+					<p class="ui-nowrap tongji1_1" id="vistednum"></p>
+					<p class="ui-nowrap tongji1_2">累计访问数</p>
+				</li>
+			</ul>
+		</div>
+		<div class="tongji_biankuang">
+			<img src="images/tongji_biankuang.png" />
+		</div>
+		<!--搜索-->
+		<div class="sousuo">
+			<input class="shuru" type="text" id="searchwords" value=""
+				placeholder="请输入选手姓名或编号" />
+			<button class="sou_btn" id="gosearch">搜索</button>
+		</div>
+		<!--投票-->
+		<div class="toupiao">
+			<ul id="photoList">
+
+			</ul>
+		</div>
+		<!--底部背景-->
+		<div class="banner">
+			<img src="images/shuoming_02.jpg" />
+		</div>
+
+
+
+		<!--遮罩层-->
+		<div id="cover" style="display: none;"></div>
+		<!--投票成功提示框-->
+		<div id="doneall" class="tijiaotishi_div" style="display: none;">
+			<img src="images/tishi_beijing.png" />
+			<!-- 投票成功提示 -->
+			<div class="tishi_wenzi">投票成功</div>
+			<!--关闭按钮-->
+			<div id="close" class="close">
+				<img src="images/close.png" />
+			</div>
+		</div>
+
+		<!--分享出去之后的网页投票成功提示框-->
+		<div id="doneall2" class="tijiaotishi_div2" style="display: none;">
+			<img src="images/tishi_beijing2.png" />
+			<!-- 投票成功提示 -->
+			<div class="tishi_wenzi2">
+				<p>下载天山海慧APP</p>
+				<p>
+					为<span id="votecansairen"></span>支持'最美物业人'
+				</p>
+			</div>
+			<div class="xiazai">
+				<a href="http://182.92.169.167:802/downts.html"><img
+					src="images/xiazai.png" /></a>
+			</div>
+			<!--关闭按钮-->
+			<div class="close">
+				<img src="images/close.png" />
+			</div>
+		</div>
+	</div>
+
+
+	<!--底部菜单-->
+	<footer id="footer1" class="page-footer fixed-footer page-footer1">
+		<ul>
+			<li><a href="shouye01.html"> <img src="images/1_active.png" />
+					<p class="wenzi_active">首页</p>
+			</a></li>
+			<li><a id="a2" href="paihang02.html"> <img
+					src="images/2_hui.png" />
+					<p class="wenzi_hui">排行</p>
+			</a></li>
+			<li><a id="a3" href="baoming03.html"> <img
+					src="images/3_hui.png" />
+					<p class="wenzi_hui">报名</p>
+			</a></li>
+			<li><a id="a4" href="huodongshuoming04.html"> <img
+					src="images/4_hui.png" />
+					<p class="wenzi_hui">活动说明</p>
+			</a></li>
+		</ul>
+	</footer>
+
+
+	<!--分享出去的底部菜单-->
+	<footer id="footer2" class="page-footer fixed-footer page-footer2"
+		style="display: none;">
+		<ul>
+			<li><a href="shouye01.html"> <img src="images/1_active.png" />
+					<p class="wenzi_active">首页</p>
+			</a></li>
+			<li><a href="paihang02.html"> <img src="images/2_hui.png" />
+					<p class="wenzi_hui">排行</p>
+			</a></li>
+			<li><a href="huodongshuoming04.html"> <img
+					src="images/4_hui.png" />
+					<p class="wenzi_hui">活动说明</p>
+			</a></li>
+		</ul>
+	</footer>
+
+
+
+
+<script type="text/javascript"> 
+var app = '';
+var u = '';
+window.onload = function(){
+	$(".whole").css("word-wrap", "break-word");
+	$(".whole").css("word-break", "break-all");
+	var W = window.screen.width;
+	var h = window.screen.height;
+	$("#zhezhao").css("width",W);
+	$("#zhezhao").css("height",h);
+	u = navigator.userAgent;
+	if($("body").find("img").length>0){
+		$("body").find("img").each(function(){
+			if(this.width > parseInt(W)-30){//左右各留15px
+				small(this,parseInt(W)-30);
+			};
+		});
+	};
+	$("#bottom").css("width", W);
+	var appType = getUrlParam('appType');
+	if(appType == 'tianshan'){
+		judge(appType);
+		$("#imgg").attr("src","../20160601_openAPP/img/tianshan.png");
+		if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+			app = 'haihui://';
+		} else if (u.indexOf('iPhone') > -1) {
+			app = 'TianShanHaiHui://';
+		}
+	}else if(appType == 'mc'){
+		judge(appType);
+		$("#imgg").attr("src","../20160601_openAPP/img/miaokong.png");
+		app = '';
+	}else if(appType == 'henghui'){
+		judge(appType);
+		$("#imgg").attr("src","../20160601_openAPP/img/henghui.png");
+		app = '';
+	}
+}
+//等比例缩放
+function small(img,maxwidth){
+	var h = img.height;	
+	var w = img.width;
+	var bi = maxwidth/w;
+	img.style.width = maxwidth+"px";
+	img.style.height = h*bi+"px";
+}
+//判断页面显示
+function judge(appType){
+	if(appType != null || appType != ''){//手机浏览器，电脑
+		if(u.indexOf('MicroMessenger') > -1 || u.indexOf('QQ/') > -1) { //微信或QQ
+			show();
+		}else if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1 || u.indexOf('iPhone') > -1){//手机浏览器
+			bottomShow();
+		}else {//电脑
+			
+		}
+	}else {//app
+		
+	}
+}
+ //底部框显示
+function bottomShow(){
+	 $("#bottom").show();
+ }
+function bottomHide(){
+	 $("#bottom").hide();
+ }
+  function hide(){
+	 $("#zhezhao").hide();
+ }
+  //显示遮罩层
+  function show(){
+	 $("#zhezhao").show();
+	 $("body").css("overflow-y","hidden");
+	 $('body').bind("touchmove",function(e){ e.preventDefault(); }); 
+	 $("#footer2").hide();
+ }
+ //唤起app
+function opApp() {
+ if(u.indexOf('MicroMessenger') > -1) { //微信
+	 show();
+ }else if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {//android
+	var timeout, t = 1000, hasApp = true;
+	setTimeout(function () {
+	    if (hasApp) {
+	        $('#dl_app').hide();
+	    } else {
+	        $('#dl_app').show();
+	        window.location = 'http://182.92.169.167:802/downts.html'; 
+	    }
+	}, 2000)
+	function openApp() {
+	    var t1 = Date.now();
+	    var ifr = $('<iframe id="ifr" ></iframe>');
+	    ifr.attr('src', app);
+	    ifr.hide();
+	    $('body').append(ifr);
+	    timeout = setTimeout(function () {
+	    	try_to_open_app(t1);
+	    }, t);
+	}
+	function try_to_open_app(t1) {
+	    var t2 = Date.now();
+	    if (!t1 || t2 - t1 < t + 200) {
+	        hasApp = false;
+	    }
+	}
+	openApp();
+ } else if (u.indexOf('iPhone') > -1) {//IOS
+	 function applink(){   
+	    window.location = app;
+	        var clickedAt = +new Date;  
+	         setTimeout(function(){
+	             !window.document.webkitHidden && setTimeout(function(){ 
+	                   if (+new Date - clickedAt < 2000){  
+	                       window.location.href = "https://itunes.apple.com/cn/app/tian-shan-hai-hui/id1025669863?mt=8";  
+	                   }  
+	             }, 500);
+	         }, 1000)
+		}
+		applink();
+ 	}
+ }
+ </script>
+	
+</body>
+</html>

@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="keywords" content="排行1，排行2，排行3" />
+    <meta name="description" content="天山水榭花都摄影大赛" />
+    <title>排行</title>
+    <link href="css/common.css" rel="stylesheet" />
+    <link href="css/paihang.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+ 	 var host = 'http://zhsq.isolomo.com.cn';
+    //var host = 'http://192.168.0.187:8080';
+    // var host = 'http://123.57.61.216:8080';    
+  	//  var host = 'http://localhost:8080';
+	$(document).ready(function(){if($.cookie("userid")!=null){$("#footer2").hide();$("#footer1").show()}else{$("#footer2").show();$("#footer1").hide()}var url=host+"/miwc2/photoContest/PhotoContestFront/getRankInfo";$(function(){$.ajax({type:"GET",contentType:"application/json",url:url,success:function(data){var json=eval("("+data+")");$.each(json.infodata,function(index,json){document.getElementById("name"+index).innerText=json.name;document.getElementById("pid"+index).innerText=json.pid;document.getElementById("votenumber"+index).innerText=json.votenumber;if(index>2){document.getElementById("paiming_li"+index).style.display=""}})}})})});$(function(){var divTop=$(".page-footer").css("bottom");var divHeight=$(".page-footer").outerHeight(true);$(".content").ready(function(){$(".content").css("bottom",divTop);$(".content").css("margin-bottom",divHeight);$(".content").css("display","block")})});$(function(){var $divWidth1=$(".box1 img").width();$(".box1 img").css("height",$divWidth1);var $divWidth2=$(".box2 img").width();$(".box2 img").css("height",$divWidth2);var $divWidth3=$(".box3 img").width();$(".box3 img").css("height",$divWidth3)});
+  	</script>
+</head>
+<body>
+    <div class="content">
+        <div class="banner">
+            <img src="images/paihang_01.jpg" />
+            <!--排名123-->
+            <div class="paiming_top">
+                <div class="paiming_top_div">
+                    <img src="images/paiming_list_bng.png" />
+                    <!--第二名-->
+                    <div class="dierming">
+                        <div class="box2">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="jiaobiao jiaobiao2">
+                            <img src="images/icon2.png" />
+                        </div>
+                    </div>
+                    <div class="author author2">
+                        <span id="name1" class="ren">姓名</span><span id="pid1" class="hao">0</span>号                                        
+                    </div>
+                    <div class="toupiaoshu toupiaoshu2">
+                        <span id="votenumber1">0</span>票
+                    </div>
+
+                    <!--第一名-->
+                    <div class="diyiming">
+                        <div class="box1">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="jiaobiao jiaobiao1">
+                            <img src="images/icon1.png" />
+                        </div>
+                    </div>
+                    <div class="author author1">
+                       <span id="name0" class="ren">姓名</span><span id="pid0" class="hao">0</span>号 
+                    </div>
+                    <div class="toupiaoshu toupiaoshu1">
+                        <span id="votenumber0">0</span>票
+                    </div>
+
+                    <!--第三名-->
+                    <div class="disanming">
+                        <div class="box3">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="jiaobiao jiaobiao3">
+                            <img src="images/icon3.png" />
+                        </div>
+                    </div>
+                    <div class="author author3">
+                       <span id="name2" class="ren">姓名</span><span id="pid2" class="hao">0</span>号 
+                    </div>
+                    <div class="toupiaoshu toupiaoshu3">
+                        <span id="votenumber2">0</span>票
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--排名列表-->
+        <div class="paiming">
+            <ul>
+                <li id="paiming_li3" style="display:none">
+                    <div class="paiming_div">
+                        <div class="num">4</div>
+                        <div class="box">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="toupiao_qingkuang">
+                            <p id="name3" class="cansairen">姓名</p>
+                            <p class="hao"><span id="pid3">3</span>号</p>
+                        </div>
+                        <div class="piaoshu"><span id="votenumber3">0</span>票</div>
+                    </div>
+                </li>
+                <li id="paiming_li4" style="display:none">
+                    <div class="paiming_div">
+                        <div class="num">5</div>
+                        <div class="box">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="toupiao_qingkuang">
+                            <p id="name4" class="cansairen">姓名</p>
+                            <p class="hao"><span id="pid4">3</span>号</p>
+                        </div>
+                        <div class="piaoshu"><span id="votenumber4">0</span>票</div>
+                    </div>
+                </li>
+                <li id="paiming_li5" style="display:none">
+                    <div class="paiming_div">
+                        <div class="num">6</div>
+                        <div class="box">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="toupiao_qingkuang">
+                            <p id="name5" class="cansairen">姓名</p>
+                            <p class="hao"><span id="pid5">3</span>号</p>
+                        </div>
+                        <div class="piaoshu"><span id="votenumber5">0</span>票</div>
+                    </div>
+                </li>
+                <li id="paiming_li6" style="display:none">
+                    <div class="paiming_div">
+                        <div class="num">7</div>
+                        <div class="box">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="toupiao_qingkuang">
+                            <p id="name6" class="cansairen">姓名</p>
+                            <p class="hao"><span id="pid6">3</span>号</p>
+                        </div>
+                        <div class="piaoshu"><span id="votenumber6">0</span>票</div>
+                    </div>
+                </li>
+                <li id="paiming_li7" style="display:none">
+                    <div class="paiming_div">
+                        <div class="num">8</div>
+                        <div class="box">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="toupiao_qingkuang">
+                            <p id="name7" class="cansairen">姓名</p>
+                            <p class="hao"><span id="pid7">3</span>号</p>
+                        </div>
+                        <div class="piaoshu"><span id="votenumber7">0</span>票</div>
+                    </div>
+                </li>
+                <li id="paiming_li8" style="display:none">
+                    <div class="paiming_div">
+                        <div class="num">9</div>
+                        <div class="box">
+                            <img src="images/toupiao_01.jpg" />
+                        </div>
+                        <div class="toupiao_qingkuang">
+                            <p id="name8" class="cansairen">姓名</p>
+                            <p class="hao"><span id="pid8">3</span>号</p>
+                        </div>
+                        <div class="piaoshu"><span id="votenumber8">0</span>票</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--底部背景-->
+        <div class="banner">
+            <img src="images/shuoming_02.jpg" />
+        </div>
+    </div>
+    <!--底部菜单-->
+    <footer id = "footer1"  class="page-footer fixed-footer page-footer1">
+        <ul>
+            <li>
+                <a href="shouye01.html">
+                    <img src="images/1_hui.png" />
+                    <p class="wenzi_hui">首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="paihang02.html">
+                    <img src="images/2_active.png" />
+                    <p class="wenzi_active">排行</p>
+                </a>
+            </li>
+            <li>
+                <a href="baoming03.html">
+                    <img src="images/3_hui.png" />
+                    <p class="wenzi_hui">报名</p>
+                </a>
+            </li>
+            <li>
+                <a href="huodongshuoming04.html">
+                    <img src="images/4_hui.png" />
+                    <p class="wenzi_hui">活动说明</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+    <!--分享出去的底部菜单-->
+    <footer id = "footer2" class="page-footer fixed-footer page-footer2" style="display: none;">
+        <ul>
+            <li>
+                <a href="shouye01.html">
+                    <img src="images/1_hui.png" />
+                    <p class="wenzi_hui">首页</p>
+                </a>
+            </li>
+            <li>
+                <a href="paihang02.html">
+                    <img src="images/2_active.png" />
+                    <p class="wenzi_active">排行</p>
+                </a>
+            </li>
+            <li>
+                <a href="huodongshuoming04.html">
+                    <img src="images/4_hui.png" />
+                    <p class="wenzi_hui">活动说明</p>
+                </a>
+            </li>
+        </ul>
+    </footer>
+</body>
+</html>
