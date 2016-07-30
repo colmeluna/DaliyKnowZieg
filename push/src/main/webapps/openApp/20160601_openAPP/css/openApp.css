@@ -1,0 +1,165 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	font-family: 'Microsoft YaHei';
+	margin: 0;
+	padding: 0;
+}
+
+.whole {
+	padding: 0px 15px;
+	margin-bottom: 15px;
+}
+
+img {
+	width: 100%;
+	margin-top: 10px;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+.whole p {
+	line-height: 1.8;
+	margin-top: 5px;
+	font-size: 1.6rem;
+	color: #333333;
+	word-break: break-all;
+	word-wrap: break-word;
+	overflow: auto;
+}
+
+/*����*/
+/* .news_biaoti
+{
+    color: #222222;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.5;
+} */
+
+.news_biaoti
+      {
+          color: #222222;
+          font-size: 2rem;
+          font-weight: bold;
+          line-height: 1.5;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+      }
+
+      .fu_title
+      {
+          margin-top: 20px;
+      }
+
+      .time
+      {
+          color: #616161;
+          font-size: 1.3rem;
+      }
+
+      .author
+      {
+          color: #616161;
+          font-size: 1.5rem;
+          margin-left: 6px;
+      }
+
+      /*����*/
+.news_content
+{
+    margin-top: 30px;
+}
+
+    .news_content p
+    {
+        line-height: 1.8;
+        font-size: 1.6rem;
+        color: #4c4c4c;
+        margin-top: 15px;
+        word-break:break-all; 
+        word-wrap:break-word;
+        overflow:auto;
+    }
+
+.jiacu
+{
+    font-weight: bold;
+}
+
+.news_content img
+{
+    width: 100%;
+    margin-top: 15px;
+}
+
+#zhezhao {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	z-index: 1000;
+}
+
+#bottom {
+	width: 100%;
+	opacity: 0.8;
+	filter: alpha(opacity = 30);
+	z-index: 100;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	display: none;
+	font-size: 0;
+}
+
+#bottom.img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+#close {
+	right: 0;
+	top: 0;
+	width: 12%;
+	height: 100%;
+	position: absolute;
+	z-index: 110;
+	text-align: center;
+	padding-top: 7.5%;
+}
+
+#closeimg {
+	z-index: 120;
+	width: 50%;
+}
+
+#left {
+	left: 0;
+	top: 0;
+	width: 88%;
+	height: 100%;
+	position: absolute;
+	z-index: 110;
+}
