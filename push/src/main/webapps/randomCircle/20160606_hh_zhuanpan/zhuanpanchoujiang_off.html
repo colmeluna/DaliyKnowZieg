@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 , minimum-scale = 1.0 ，maximum-scale = 1.0 ，user-scalable = no " />
+    <meta name="format-detection" content="telephone=no">
+    <title>转盘抽奖</title>
+    <link href="css/zhuanpan.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <!--转盘-->
+    <script src="js/awardRotate.js"></script>
+    <script type="text/javascript">
+    var host = 'http://zhsq.isolomo.com.cn';
+        $(function () {
+            var rotateTimeOut = function () {
+                $('#rotate').rotate({
+                    angle: 0,
+                    animateTo: 2160,
+                    duration: 8000, //旋转时间 
+                    callback: function () {
+                        alert('网络超时，请检查您的网络设置！');
+                    }
+                });
+            };
+            var bRotate = false;
+
+            var rotateFn = function (item, angles, txt) {
+                bRotate = !bRotate;
+                $('#rotate').stopRotate();
+                $('#rotate').rotate({
+                    angle: 0,
+                    animateTo: angles + 1800,
+                    duration: 1400,//旋转时间 
+                    callback: function () {
+                        bRotate = !bRotate;
+                        $("#bingoitem").val(item); //中奖id 复制给 hidden
+                        $("#bingoitemName").val(txt); //中奖id 复制给 hidden
+                        if(item!=8){ //中了
+                        	$("#chouzhong_div").show();
+                        	$("#bingoBox").text('【 '+txt+' 】'); //给弹出窗内 bingoBox赋值 显示中了什么
+                        }
+                        else{//Meizhong
+                        	$("#weichouzhong_div").show();
+                        }
+                    }
+                })
+            };
+
+            $('.pf').click(function () {
+
+                if (bRotate) return;
+                //var item = rnd(0, 7);
+                
+                $.ajax({
+					type : "GET",
+					contentType : "application/json",
+					url : host+'/miwc2/WebUIFrontController/luck20160417',
+					success : function(data) {
+						var json = eval("(" + data + ")");
+						var item;
+						/*
+						if(json.luckid<=4&&json.luckid>=1){
+							item = json.luckid;
+						}
+						else{
+							item = rnd(5,8)
+						}
+						*/
+						item = json.luckid;
+						//item = 8;
+		                switch (item) {
+		                    case 1:
+		                        rotateFn(item, 337, '卡片折叠刀');
+		                        break;
+		                    case 2:
+		                    	rotateFn(item, 395, '开瓶器 ');
+		                        break;
+		                    case 3:
+		                    	rotateFn(item, 80, '秋葵花茶');
+		                        break;
+		                    case 4:
+		                    	rotateFn(item, 240, '精致餐具 ');
+		                        break;
+		                    case 5:
+		                        rotateFn(item, 195, '鞋打理刷子');
+		                        break;
+		                    case 6:
+		                    	rotateFn(item, 115, '枕芯');
+		                        break;
+		                    case 7:
+		                        rotateFn(item, 280, '洗衣液 ');
+		                        break;
+		                    case 8:
+		                    	rotateFn(item, 322, '谢谢参与');
+		                    	break;
+		                }
+					}
+                	
+				});
+            });
+        });
+        function rnd(n, m) {
+            return Math.floor(Math.random() * (m - n + 1) + n)
+        }
+        
+        
+        
+        $(document).ready(function(){
+       		$("#close1").click(function () {
+               $("#weichouzhong_div").css('display','none');//没中奖 关闭按钮 
+            });
+            $("#close2").click(function () {
+               $("#chouzhong_div").hide();
+            });
+            $(".cz_btn").click(function () {
+               /* $("#tijiaoqian").hide();
+               $("#tijiaohou").show(); */
+            });
+          
+          //抽中 
+      	  $("#cz_btn").click(function(){ 
+	      		var phone = $("#cz_phone").val(); //手机号
+	      		var comname = encodeURI(encodeURI($("#cz_comname").val()));//小区名称
+	      		var itemid = $("#bingoitem").val(); //中奖奖品id
+	      		var itemName = encodeURI(encodeURI($("#bingoitemName").val())); //中奖奖品名称  
+	      		var url = host+'/miwc2/WebUIFrontController/luckInputPhone20160417?request={"phone":"'+phone+'","comname":"'+comname+'","bingoid":"'+itemid+'","bingoname":"'+itemName+'"}';
+	      		$.ajax({
+					type : "GET",
+					contentType : "application/json",
+					url : url,
+					success : function(data) {
+						var json = eval("(" + data + ")");
+						//alert(json.msg);
+						$("#tishi").text(json.msg);
+						if(json.code == 2){ //填写成功 的
+							//关闭 提交按钮 
+							$("#cz_btn").hide();
+						}
+					}
+				});
+      	  });  
+      	  //未中奖  直接关闭提示页面 可继续抽奖  次数不限 
+	      $("#wcz_btn").click(function(){ 
+	      		$("#weichouzhong_div").css('display','none');
+	      });
+        });
+    </script>
+    <!--转盘结束-->
+</head>
+<body>
+	<input type = "hidden" id = "bingoitem" value =""/>
+	<input type = "hidden" id = "bingoitemName" value =""/>
+    <div class="top1">
+        <img src="images/banner1.jpg" />
+        <!--转盘-->
+        <div class="zhuanpan_div">
+            <div class="turntable-bg">
+                <img style="width: 100%;" src="images/turntable-bg.png" />
+                <div class="pointer">
+                    <img src="images/pointer-gary.png" alt="pointer" />
+                </div>
+                <div class="rotate">
+                    <img id="rotate" src="images/turntable.png" alt="turntable" />
+                </div>
+            </div>
+        </div>
+
+        <!--未抽中提示框-->
+        <div class="weichouzhong_div" id="weichouzhong_div" style="display:none;">
+            <img src="images/weichouzhong.png" />
+            <!-- <input type="text" id = "wcz_phone" class="shurukuang shurukuang1" placeholder="输入您的手机号再抽一次" />
+            <input type="text" id = "wcz_comname" class="shurukuang shurukuang2" placeholder="所在小区名称" />
+ -->
+            <div class="wcz_btn" id = "wcz_btn">
+                <img src="images/wcz_btn.png" />
+            </div>
+
+            <!--关闭按钮-->
+            <div class="close1" id="close1">
+                <img src="images/close_btn.png" />
+            </div>
+        </div>
+
+        <!--抽中提示框-->
+        <div class="chouzhong_div" id="chouzhong_div" style="display:none;">
+            <img src="images/chouzhong.png" />
+            <div class="jiangpintishi">
+                <p class="tishiyu1">中奖啦</p>
+                <p class="tishiyu2">恭喜您抽中<span id = "bingoBox"></span>一个</p>
+            </div>
+            <!--提交前-->
+            <div class="tijiaoqian" id="tijiaoqian">
+                <input id = "cz_phone" type="text" class="shurukuang shurukuang3" placeholder="请输入您的手机号做为领奖凭证" />
+                <input id = "cz_comname" type="text" class="shurukuang shurukuang4" placeholder="所在小区名称" />
+                <!--提交按钮-->
+                <div class="cz_btn" id = "cz_btn">
+                    <img src="images/chouzhong_btn.png" />
+                </div>
+            </div>
+            <!--点击提交后显示内容-->
+            <div class="tijiaohou" id = "tijiaohou" style="display:block;">
+                   <div class="tijiao2" id="tishi"></div>
+            </div>
+
+            <!--关闭按钮-->
+            <div class="close2" id="close2">
+               <img src="images/close_btn.png" />
+            </div>
+        </div>
+    </div>
+    <!--转盘部分所在div结束-->
+    <div class="banner">
+        <img src="images/banner2.jpg" />
+    </div>
+    <div class="banner">
+        <img src="images/banner3.jpg" />
+    </div>
+    <div class="banner">
+        <img src="images/banner4.jpg" />
+    </div>
+
+</body>
+</html>
