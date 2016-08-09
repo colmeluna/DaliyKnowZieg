@@ -1,0 +1,518 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="width=device-width,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;">
+    <meta name="format-detection" content="telephone=no">
+    <title>七夕情人节活动</title>
+    <link href="css/qixi.css" rel="stylesheet" />
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script>
+    var host = 'http://zhsq.isolomo.com.cn';
+    //var host = 'http://192.168.0.193:8080';
+    var comid;
+    function GetRequest() {
+    	var url = location.search; 
+    	var theRequest = new Object();
+    	if (url.indexOf("?") != -1) {
+    		var str = url.substr(1);
+    		strs = str.split("&");
+    		for ( var i = 0; i < strs.length; i++) {
+    			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+    		}
+    	}
+    	return theRequest;
+    	}    
+    	var Request = new Object();
+    	Request = GetRequest();
+    	comid = Request['comidd'];
+    	if(comid == undefined){
+    		comid = '20150674'; //默认天山水榭花都
+    	}
+    	var userid=Request['userid'];
+
+        $(function () {
+        	$("#content").val("");
+            var $tab = $(".menu ul li");
+
+            $tab.click(function () {
+                $(this).removeClass('leavethis').addClass('current').siblings().removeClass('current').addClass('leavethis');
+                var id = $(this).attr("id");
+                $(".qiehuan_content").find("div").each(function () {
+                    var index = $(this).attr("data-index");
+                    if (index == id) {
+                        $(this).siblings().hide().end().show();
+                    }
+                });
+            })
+        });
+        
+        
+      
+       var reg =  /^0?1[3|4|5|6|7|8|9][0-9]\d{8}$/;;
+      	$(document).ready(function(){
+      		$(".close").click(function () {
+                  $("#cover").hide();
+                  $(".tijiaotishi_div").hide();
+                  
+	                  $("#yourname1").val("");
+	                  $("#yourphone1").val("");
+	                  $("#yourname2").val("");
+	                  $("#yourphone2").val("");
+	                  $("#recname").val("");
+	                  $("#recphone").val("");
+	                  $("#reczip").val("");
+	                  $("#address").val("");
+	                  $("#content").val("");
+               });
+                    
+            //提交 
+        	  $("#baoming1").click(function(){ 
+        	  	var name1 = encodeURI(encodeURI($("#yourname1").val())); //姓名1
+  	      		var phone1 = $("#yourphone1").val(); //手机号1
+  	      		var recname =  encodeURI(encodeURI($("#recname").val()));
+  	      		var recphone = encodeURI(encodeURI($("#recphone").val()));
+  	      		var reczip = encodeURI(encodeURI($("#reczip").val()));
+  	      		var address = encodeURI(encodeURI($("#address").val()));
+  	      		var content = encodeURI(encodeURI($("#content").val()));
+  	         	var role =$('input[type="radio"][name="radio"]:checked').val(); 
+  	      		var url = 
+  	      			host+'/miwc2/WebUIFrontController/qixiCommit'
+  	      			+'?request={"comid":"'+comid+'","onoff":"0","name":"'+name1+'","phone":"'+phone1+'","recname":"'+recname+'","recphone":"'+recphone+'","zipcode":"'+reczip+'","address":"'+address+'","content":"'+content+'","role":"'+role+'"}';
+  	      	
+  	      		if(name1 == ''){
+  	      			$("#form_tishi1").text("请输入姓名");
+  					$("#yourname1").focus();
+  	      		}
+  	      		else if( phone1 ==''){
+  	      			$("#form_tishi1").text("");
+  	      			$("#form_tishi1").text("请输入电话");
+  					$("#yourphone1").focus();
+  	      		}
+  	      		else if(!reg.test(phone1)){
+  	      			$("#form_tishi1").text("");
+	      			$("#form_tishi1").text("请输入正确格式的号码 ");
+  	      			$("#yourphone1").focus();
+  	      		}
+  	     	 	else if(recname == ''){
+	      			$("#form_tishi1").text("");
+  					$("#form_tishi1").text("请输入接受人姓名 ");
+      				$("#recname").focus();
+	      		}
+  	     	 	else if(recphone ==''){
+  	     	 		$("#form_tishi1").text("");
+					$("#form_tishi1").text("请输入接受人电话 ");
+  					$("#recphone").focus();
+  	     	 	}
+  	     	 	else if(reczip==''){
+  	     	 		$("#form_tishi1").text("");
+					$("#form_tishi1").text("请输入邮编 ");
+					$("#reczip").focus();
+  	     	 	}
+  	      		else if (address == ''){
+	  	      		$("#form_tishi1").text("");
+	      			$("#form_tishi1").text("请输入地址 ");
+  					$("#address").focus();
+  	      		} 
+  	      		else if(content ==''){
+  	      			$("#form_tishi1").text("");
+      				$("#form_tishi1").text("请输入祝福内容 ");
+					$("#content").focus();
+  	      		}
+  	      		
+  	      		else if (role ==''||role==undefined){
+  	      			$("#form_tishi1").text("");
+  	      			$("#form_tishi1").text("请选择一个收信人关联  ");
+  	      		}
+  	      		else {
+  	      		$("#form_tishi1").text("");
+  		      		$.ajax({
+  						type : "GET",
+  						contentType : "application/json",
+  						url : url,
+  						success : function(data) {
+  							var json = eval("(" + data + ")");
+  							//alert(json.msg);
+  								if(json.code == 0){ 
+    								$("#cover").show();
+    								$("#tishidiv0").show();
+    							}
+    							else if(json.code == 1){
+    								$("#cover").show();
+    								$("#tishidiv1").show();
+    							}
+    							else if(json.code == 2){
+    								$("#cover").show();
+    								$("#tishidiv2").show();
+    							}
+  						}
+  					});
+  	      		}
+        	  });  
+        	  
+            
+        	  $("#baoming2").click(function(){ 
+    	      		var name2 = encodeURI(encodeURI($("#yourname2").val()));
+    	      		var phone2 = $("#yourphone2").val();
+    	      		var url = 
+    	      			host+'/miwc2/WebUIFrontController/qixiCommit'
+    	      			+'?request={"comid":"'+comid+'","onoff":"1","name":"'+name2+'","phone":"'+phone2+'","recname":"","recphone":"","zipcode":"","address":"","content":"","role":""}';
+    	      		if(name2 == ''){
+      	      			$("#form_tishi2").text("请输入姓名");
+      					$("#yourname2").focus();
+      	      		}
+      	      		else if( phone2 ==''){
+      	      			$("#form_tishi2").text("");
+      	      			$("#form_tishi2").text("请输入电话");
+      					$("#yourphone2").focus();
+      	      		}
+      	      		else if(!reg.test(phone2)){
+      	      			$("#form_tishi2").text("");
+    	      			$("#form_tishi2").text("请输入正确格式的号码 ");
+      	      			$("#yourphone2").focus();
+      	      		}
+    	      		
+    	      		else {
+    		      		$.ajax({
+    						type : "GET",
+    						contentType : "application/json",
+    						url : url,
+    						success : function(data) {
+    							var json = eval("(" + data + ")");
+    							if(json.code == 0){ 
+    								$("#cover").show();
+    								$("#tishidiv0").show();
+    							}
+    							else if(json.code == 1){
+    								$("#cover").show();
+    								$("#tishidiv1").show();
+    							}
+    							else if(json.code == 2){
+    								$("#cover").show();
+    								$("#tishidiv2").show();
+    							}
+    						}
+    					});
+    	      		}
+          	  });
+            
+           /* //获取商品列表
+            var prourl = host+"/miwc2/opencontrol/frontControl/qixiDetailUrl?id=e15a8bacda294ec79a8d977cf3baee34&comidd="+comid;
+            //alert(prourl);
+            $.ajax({
+				type : "GET",
+				async:false,
+				contentType : "application/json",
+				url : prourl,
+				success : function(data) {
+            		var json=eval("("+data+")");
+            		$.each(json.infodata,function(index,json){
+            			//alert(json.name);
+            			//document.getElementById("img"+index).attr("src",json.picurl);
+            			$("#img"+index).attr("src",json.picurl);
+            			document.getElementById("detailid"+index).value = json.id;
+            			document.getElementById("sharehtml"+index).value = json.sharehtml;
+            		});
+				}
+			});*/
+            
+          });
+    </script>
+    <script type="text/javascript">
+    
+        //客户端操作系统判断
+        var browser = {
+            versions: function () {
+                var u = navigator.userAgent,
+		        app = navigator.appVersion;
+                return {
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+                    android: u.indexOf("Android") > -1 || u.indexOf("Linux") > -1,
+                    iPhone: u.indexOf("iPhone") > -1,
+                    iPad: u.indexOf("iPad") > -1,
+                    safari: u.indexOf("Safari") > -1,
+                }
+            }(),
+        };
+        
+      //取传入参数判断app
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        
+        //回调到原生app
+        function goAppNative(ii) {
+        	var id = document.getElementById("detailid"+ii).value;
+            var share = document.getElementById("sharehtml"+ii).value;
+        	var appType = getUrlParam('appType');
+        	if (appType != null) {//判断分享出去时，跳转商品详情页面
+        		window.location.href = share+"?appType="+appType;
+			}else {//回调到原生app
+	        	//对应产品id
+	            var proId = id;
+	        	//传递参数json格式
+	            var strjson = '{"funcname":"go","funcdata":{"id":"' + id + '"}}';
+	            if (browser.versions.iPhone || browser.versions.iPad || browser.versions.ios) {
+	            	//原生ios回调
+	                var m_bridge;
+	                function connectWebViewJavascriptBridge(callback) {
+	                    if (window.WebViewJavascriptBridge) {
+	                        callback(WebViewJavascriptBridge)
+	                    } else {
+	                        document.addEventListener("WebViewJavascriptBridgeReady",
+	                        function () {
+	                            callback(WebViewJavascriptBridge)
+	                        },
+	                        false)
+	                    }
+	                }
+	                connectWebViewJavascriptBridge(function (bridge) {
+	                    m_bridge = bridge
+	                });
+	                m_bridge.callHandler("go", strjson,
+	                function (response) { })
+	            }
+	            if (browser.versions.android) {
+	            	//原生Android回调
+	                window.mc.callInterfaceFromJs(strjson)
+	            }
+			}
+        }
+	</script>
+</head>
+<body>
+    <div class="content">
+        <!--头部展示图片-->
+        <div class="banner">
+            <img src="images/qixi_01.jpg" />
+            <img src="images/qixi_02.jpg" />
+        </div>
+        <!--菜单-->
+        <div class="menu">
+            <ul>
+                <li id="now_baoming" class="current">现在报名</li>
+                <li id="xianxia_baoming" class="leavethis">线下报名</li>
+            </ul>
+        </div>
+        <!--切换内容区域-->
+        <div class="qiehuan_content">
+            <!--现在报名-->
+            <div class="now_baoming" data-index="now_baoming">
+                <div class="now_form">
+                    <div class="baoming">
+                        <ul>
+                            <li>
+                                <div class="nowbaoming_left">
+                                    <div class="form_left">您的姓名</div>
+                                    <div class="info">
+                                        <input id="yourname1" class="shuru" type="text" />
+                                    </div>
+                                </div>
+                                <div class="nowbaoming_right">
+                                    <div class="form_left">您的电话</div>
+                                    <div class="info">
+                                        <input id = "yourphone1" class="shuru" type="text" />
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="nowbaoming_left">
+                                    <div class="form_left">收信人姓名</div>
+                                    <div class="info">
+                                        <input id = "recname" class="shuru" type="text" />
+                                    </div>
+                                </div>
+                                <div class="nowbaoming_right">
+                                    <div class="form_left">收信人电话</div>
+                                    <div class="info">
+                                        <input id="recphone" class="shuru" type="text" />
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_left">收信人邮编</div>
+                                <div class="info">
+                                    <input id="reczip" class="shuru" type="text" />
+                                </div>
+                            </li>
+                            <li>
+                                <div class="form_left">收信人地址</div>
+                                <div class="info">
+                                    <input id="address" class="shuru" type="text" />
+                                </div>
+                            </li>
+                            <li>
+                                <textarea id="content" 
+                                class="lapiaoxuanyan" 
+                                maxlength="80"
+                                rows="5" 
+                                placeholder="在这里写出你想说的甜言蜜语吧! 限80字">
+                                </textarea>
+                            </li>
+                            <li>
+                                <div class="form_left2">您与收信人的关系：</div>
+                                <div class="info2">
+                                    <label>
+                                        <input type="radio" name="radio" value="1" />情侣</label>
+                                    <label>
+                                        <input type="radio" name="radio" value="2"/>爱人</label>
+                                    <label>
+                                        <input type="radio" name="radio" value="3"/>朋友</label>
+                                </div>
+                            </li>
+                        </ul>
+						<div id="form_tishi1" class="form_tishi">
+							
+						</div>
+						
+                    </div>
+                </div>
+                <!--提交按钮-->
+                 
+                <div id="baoming1" class="toupiao_btn">
+                    <img src="images/submit.png" />
+                </div>
+            </div>
+            <!--线下报名-->
+            <div class="xianxia_baoming" data-index="xianxia_baoming" style="display: none;">
+                <div class="xianxia_form">
+                    <!--线下报名表单-->
+                    <div class="baoming ">
+                        <ul>
+                            <li>
+                                <div class="form_left">您的姓名</div>
+                                <input id="yourname2" class="shuru shuru1" type="text" />
+                            </li>
+                            <li>
+                                <div class="form_left">您的电话</div>
+                                <input id="yourphone2" class="shuru shuru2" type="text" />
+                            </li>
+                        </ul>
+                        <div id="form_tishi2"  class="form_tishi">
+                        
+                        </div>
+                    </div>
+                </div>
+                <!--提交按钮-->
+                <div id="baoming2" class="toupiao_btn">
+                    <img src="images/submit.png" />
+                </div>
+            </div>
+            <!--线下报名结束-->
+        </div>
+        <!--切换区域结束-->
+        <!--底部图片-->
+        
+        <div class="banner">
+        <img src="images/qixi_04.jpg" />
+            <ul class="product_list">
+                <li>
+                    <img id="img0" src="images/pro1-1.jpg" onclick="goAppNative('0');"/>
+                    <input id="detailid0" name="detailid0" type="hidden" value="13587"/>
+                    <input id="sharehtml0" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080115545113588.html"/>
+                </li>
+                <li>
+                    <img id="img1" src="images/pro1-2.jpg" onclick="goAppNative('1');"/>
+                    <input id="detailid1" name="detailid0" type="hidden" value="13569"/>
+                    <input id="sharehtml1" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080217145013570.html"/>
+                </li>
+                <li>
+                    <img id="img2" src="images/pro1-3.jpg" onclick="goAppNative('2');"/>
+                    <input id="detailid2" name="detailid0" type="hidden" value="13581"/>
+                    <input id="sharehtml2" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080116032313582.html"/>
+                </li>
+                <li>
+                    <img id="img3" src="images/pro2-1.jpg" onclick="goAppNative('3');"/>
+                    <input id="detailid3" name="detailid0" type="hidden" value="13589"/>
+                    <input id="sharehtml3" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080115512413590.html"/>
+                </li>
+                <li>
+                    <img id="img4" src="images/pro2-2.jpg" onclick="goAppNative('4');"/>
+                    <input id="detailid4" name="detailid0" type="hidden" value="13571"/>
+                    <input id="sharehtml4" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080217254713572.html"/>
+                </li>
+                <li>
+                    <img id="img5" src="images/pro2-3.jpg" onclick="goAppNative('5');"/>
+                    <input id="detailid5" name="detailid0" type="hidden" value="13583"/>
+                    <input id="sharehtml5" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080116031413584.html"/>
+                </li>
+                <li>
+                    <img id="img6" src="images/pro3-1.jpg" onclick="goAppNative('6');"/>
+                    <input id="detailid6" name="detailid0" type="hidden" value="13591"/>
+                    <input id="sharehtml6" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080115534213592.html"/>
+                </li>
+                <li>
+                    <img id="img7" src="images/pro3-2.jpg" onclick="goAppNative('7');"/>
+                    <input id="detailid7" name="detailid0" type="hidden" value="13573"/>
+                    <input id="sharehtml7" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080217235513574.html"/>
+                </li>
+                <li>
+                    <img id="img8" src="images/pro3-3.jpg" onclick="goAppNative('8');"/>
+                    <input id="detailid8" name="detailid0" type="hidden" value="13585"/>
+                    <input id="sharehtml8" name="sharehtml0" type="hidden" value="http://zhsq.isolomo.com.cn//miwc2/productShare/2016080116030413586.html"/>
+                </li>
+            </ul>
+        </div>
+
+
+        <!--遮罩层-->
+        <div id="cover" style="display: none;"></div>
+
+
+        <!--参加过提示框-->
+        <div id= "tishidiv2" class="tijiaotishi_div" style="display: none;">
+            <img src="images/tishi_beijing.png" />
+            <!--提示-->
+            <div class="tishi_info">
+                <p class="tishi_wenzi">您已参加过此活动！</p>
+            </div>
+            <!--关闭按钮-->
+            <div class="close">
+                <img src="images/close.png" />
+            </div>
+        </div>
+
+        <!--线下报名提示框-->
+        <div id="tishidiv1" class="tijiaotishi_div" style="display: none;">
+            <img src="images/tishi_beijing.png" />
+            <!--提示-->
+            <div class="tishi_info">
+                <p class="tishi_wenzi1">报名成功！</p>
+                <p class="tishi_wenzi2">请于8月7日在水榭花都北门现场领取明信片</p>
+            </div>
+            <!--关闭按钮-->
+            <div class="close">
+                <img src="images/close.png" />
+            </div>
+        </div>
+
+        <!--线上报名提示框-->
+        <div id = "tishidiv0" class="tijiaotishi_div" style="display: none;">
+            <img src="images/tishi_beijing.png" />
+            <!--提示-->
+            <div class="tishi_info">
+                <p class="tishi_wenzi1">提交成功！</p>
+                <p class="tishi_wenzi2">我们将免费帮您寄送明信片</p>
+            </div>
+            <!--关闭按钮-->
+            <div class="close">
+                <img src="images/close.png" />
+            </div>
+        </div>
+        <!--提示框结束-->
+    </div>
+
+
+
+    <!--cnzz  -->
+    <div style="display: none">
+
+	<script type="text/javascript">
+		var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cspan id='cnzz_stat_icon_1260022521'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1260022521%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+	</div>  
+</body>
+</html>

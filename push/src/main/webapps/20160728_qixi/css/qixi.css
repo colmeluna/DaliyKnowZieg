@@ -1,0 +1,476 @@
+/*页面公共部分*/
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html
+{
+    font-size: 62.5%;
+}
+
+body
+{
+    margin: 0 auto;
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei';
+}
+
+.content
+{
+    width: 100%;
+}
+
+p
+{
+    margin: 0;
+    padding: 0;
+}
+
+a
+{
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
+
+input
+{
+    outline: none;
+}
+
+ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li
+{
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+.ui-nowrap
+{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+div
+{
+    font-size: 0;
+}
+
+img
+{
+    border: none;
+    display: block;
+}
+
+
+
+
+
+body
+{
+    background-color: #1b143e;
+}
+
+.banner
+{
+    width: 100%;
+}
+
+    .banner img
+    {
+        width: 100%;
+    }
+
+input, button, textarea
+{
+    border: none;
+}
+
+
+/*菜单*/
+.menu
+{
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+    .menu ul li
+    {
+        width: 45%;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        -moz-box-sizing: border-box; /* Firefox */
+        -webkit-box-sizing: border-box; /* Safari */
+        -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        box-sizing: border-box;
+        /*border: 1px solid #d9acff;*/
+        text-align: center;
+        padding: 10px 0px;
+        font-size: 1.6rem;
+        -moz-border-radius: 5px 5px 0px 0px;
+        -webkit-border-radius: 5px 5px 0px 0px;
+        border-radius: 5px 5px 0px 0px;
+    }
+
+        .menu ul li:last-child
+        {
+            margin-left: 10%;
+        }
+
+.leavethis
+{
+    /*background-color: #fff;*/
+    color: #7435a9;
+    background-image: url(../images/menu1.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.current
+{
+    /*background-color: #aa45ff;*/
+    color: #fff;
+    overflow: hidden;
+    background-image: url(../images/menu2.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+/*切换区域*/
+.qiehuan_content
+{
+    width: 100%;
+    overflow: hidden;
+}
+
+.now_baoming
+{
+    width: 100%;
+}
+
+.xianxia_baoming
+{
+    width: 100%;
+}
+
+/*报名*/
+.baoming
+{
+    width: 90%;
+    margin: 0 auto;
+}
+
+    .baoming ul li
+    {
+        width: 100%;
+        overflow: hidden;
+    }
+/*现在报名*/
+.now_beijing
+{
+    width: 100%;
+    position: relative;
+}
+
+    .now_beijing img
+    {
+        width: 100%;
+    }
+
+.now_form
+{
+    /*position:absolute;
+    top:0%;
+    left:5%;*/
+    width: 100%;
+    background-image: url(../images/nowbaoming_bng.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 15px 0px;
+}
+
+.form_left
+{
+    font-size: 1.5rem;
+    color: #bd256d;
+    height: 39px;
+    line-height: 39px;
+    float: left;
+    width: 75px;
+    padding: 0px 5px;
+    text-align: right;
+}
+
+.info
+{
+    position: relative;
+    overflow: hidden;
+    width: auto;
+}
+
+    .info input
+    {
+        width: 100%;
+    }
+
+.shuru
+{
+    /*float:left;*/
+    background-color: #d4d4d4;
+    padding: 5px 0px;
+    /*-moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;*/
+    margin-top: 5px;
+    font-family: 'Microsoft YaHei';
+}
+/*线下报名*/
+.xianxia_beijing
+{
+    width: 100%;
+    position: relative;
+}
+
+    .xianxia_beijing img
+    {
+        width: 100%;
+    }
+
+.xianxia_form
+{
+    /*position:absolute;
+    top:20%;
+    left:5%;*/
+    width: 100%;
+    background-image: url(../images/xianxiabaoming_bng.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    padding: 15% 0px 17%;
+}
+
+.shuru1
+{
+    width: 30%;
+}
+
+.shuru2
+{
+    width: 50%;
+}
+
+/*现在报名*/
+.nowbaoming_left
+{
+    width: 45%;
+    float: left;
+}
+
+.nowbaoming_right
+{
+    width: 55%;
+    float: left;
+}
+
+.lapiaoxuanyan
+{
+    width: 100%;
+    background-color: #cfcfcf;
+    padding: 10px 0px;
+    text-indent: 10px;
+    color: #6d6d6d;
+    margin-top: 10px;
+    font-family: 'Microsoft YaHei';
+    border: 1px solid #fff;
+    -moz-box-sizing: border-box; /* Firefox */
+    -webkit-box-sizing: border-box; /* Safari */
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    .lapiaoxuanyan placeholder
+    {
+        color: #6d6d6d;
+    }
+
+/*单选框*/
+.form_left2
+{
+    font-size: 1.5rem;
+    color: #bd256d;
+    height: 39px;
+    line-height: 39px;
+    float: left;
+    padding: 0px 5px;
+    text-align: right;
+}
+
+.info2
+{
+    position: relative;
+    overflow: hidden;
+    width: auto;
+}
+
+    .info2 label
+    {
+        font-size: 1.5rem;
+        color: #bd256d;
+        height: 39px;
+        line-height: 39px;
+        float: left;
+        margin-right: 3%;
+    }
+
+    .info2 input
+    {
+    }
+
+
+/*提交按钮*/
+.toupiao_btn
+{
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+    .toupiao_btn img
+    {
+        width: 100%;
+    }
+
+
+
+
+/*遮罩层*/
+#cover
+{
+    position: fixed;
+    z-index: 99;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    background: #000 none repeat scroll 0% 0%;
+}
+/*关闭按钮*/
+.close
+{
+    position: absolute;
+    right: 3%;
+    top: 5%;
+    width: 13%;
+}
+
+    .close img
+    {
+        width: 100%;
+    }
+
+
+/*提示框*/
+.tijiaotishi_div
+{
+    position: fixed;
+    width: 80%;
+    top: 35%;
+    left: 10%;
+    z-index: 9999;
+}
+
+    .tijiaotishi_div img
+    {
+        width: 100%;
+        position: relative;
+    }
+
+.tishi_wenzi
+{
+    text-align: center;
+    color: #f64a43;
+    font-size: 1.6rem;
+    height: 50px;
+    line-height: 50px;
+    /*font-weight: bold;*/
+}
+
+
+
+.tishi_info
+{
+    width: 300px;
+    height: 50px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -150px;
+    margin-top: -25px;
+    text-align: center;
+}
+
+.tishi_wenzi1
+{
+    color: #f64a43;
+    font-size: 1.6rem;
+    /*font-weight: bold;*/
+}
+
+.tishi_wenzi2
+{
+    color: #333333;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+
+
+/* 请输入姓名提示框 */
+.form_tishi{
+	text-align: center;
+    color: #f64a43;
+    font-size: 1.6rem;
+    padding: 20px 0px 10px;
+    font-weight: bold;
+}
+
+
+
+
+/*添加*/
+.product_list
+{
+    width:100%;
+    overflow:hidden;
+    background-color: #1b143e;
+    margin-bottom:20px;
+}
+    .product_list li
+    {
+        width:32%;
+        float:left;
+        margin-left:1%;
+        margin-top:5px;
+    }
+        .product_list li img
+        {
+            width:100%;
+            margin:0 auto;
+        }
